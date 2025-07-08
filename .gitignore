@@ -1,0 +1,37 @@
+# === ROS 2 / colcon build artifacts ===
+build/
+install/
+log/
+.colcon/
+
+# === CMake / catkin / colcon cache ===
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+ament_cmake_core/
+*.pyc
+
+# === Python cache ===
+__pycache__/
+*.py[cod]
+
+# === Gazebo model cache ===
+~/.gazebo/models/
+*.dae
+*.stl
+
+# === VSCode / IDE ===
+.vscode/
+.idea/
+*.sw?
+*.swo
+*.bak
+
+# === ROS 2 launch + param auto backups ===
+*.launch.py~
+*.yaml~
+*.params.yaml~
+
+# === Misc ===
+*.log
+*.DS_Store

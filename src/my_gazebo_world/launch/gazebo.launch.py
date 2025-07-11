@@ -7,6 +7,7 @@ import os
 
 def generate_launch_description():
     tb3_gazebo_dir = get_package_share_directory('turtlebot3_gazebo')
+    tb3_cartographer_dir = get_package_share_directory('turtlebot3_cartographer')
 
     # Paths to SDF files
     box_sdf_path = '/home/hafsa/ros2_ws/src/my_gazebo_world/worlds/moving_box.sdf'
@@ -16,7 +17,7 @@ def generate_launch_description():
         # Set TurtleBot3 model environment variable
         SetEnvironmentVariable('TURTLEBOT3_MODEL', 'burger'),
 
-        # Launch TurtleBot3 with default world
+        # Launch TurtleBot3 with house world
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(tb3_gazebo_dir, 'launch', 'turtlebot3_house.launch.py')
@@ -29,7 +30,7 @@ def generate_launch_description():
                 'ros2', 'run', 'gazebo_ros', 'spawn_entity.py',
                 '-entity', 'moving_box',
                 '-file', box_sdf_path,
-                '-x', '-1.0', '-y', '2.5', '-z', '0.25'
+                '-x', '2.466', '-y', '0.34', '-z', '0.24'
             ],
             output='screen'
         ),
@@ -40,7 +41,7 @@ def generate_launch_description():
                 'ros2', 'run', 'gazebo_ros', 'spawn_entity.py',
                 '-entity', 'moving_cylinder',
                 '-file', cylinder_sdf_path,
-                '-x', '-6.0', '-y', '-2.0', '-z', '0.0'
+                '-x', '-5.14', '-y', '3.2', '-z', '0.24'
             ],
             output='screen'
         ),
@@ -48,7 +49,15 @@ def generate_launch_description():
         # Launch your Python node that commands both models
         Node(
             package='my_gazebo_plugins',
-            executable='moving_box_commander.py',  # NO `.py` here
+            executable='moving_box_commander.py',  # controls both
             output='screen'
+        ),
+
+        # ✅ Launch Cartographer for SLAM
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(tb3_cartographer_dir, 'launch', 'cartographer.launch.py')
+            ),
+            launch_arguments={'use_sim_time': 'true'}.items()
         ),
     ])

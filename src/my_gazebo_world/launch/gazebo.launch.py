@@ -15,7 +15,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         # Set TurtleBot3 model environment variable
-        SetEnvironmentVariable('TURTLEBOT3_MODEL', 'burger'),
+        SetEnvironmentVariable('TURTLEBOT3_MODEL', 'waffle'),
 
         # Launch TurtleBot3 with house world
         IncludeLaunchDescription(
@@ -50,6 +50,13 @@ def generate_launch_description():
         Node(
             package='my_gazebo_plugins',
             executable='moving_box_commander.py',  # controls both
+            output='screen'
+        ),
+
+        # Launch your Python node that commands both models
+        Node(
+            package='yolo_detector',
+            executable='yolo_node',  # controls both
             output='screen'
         ),
 

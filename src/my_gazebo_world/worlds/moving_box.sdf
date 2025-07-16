@@ -13,6 +13,12 @@
         <geometry>
           <box><size>0.5 0.5 0.5</size></box>
         </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Red</name>
+          </script>
+        </material>
       </visual>
       <inertial>
         <mass>1.0</mass>
@@ -25,7 +31,7 @@
         <remapping>pose:=moving_box/pose</remapping>
       </ros>
       <body_name>link</body_name>
-      <update_rate>30.0</update_rate>
+      <update_rate>10.0</update_rate>
     </plugin>
 
     <plugin name="moving_box_cmd_vel_plugin" filename="libmoving_box_cmd_vel_plugin.so"/>

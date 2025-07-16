@@ -59,12 +59,21 @@ def generate_launch_description():
             executable='yolo_node',  # controls both
             output='screen'
         ),
+        Node(
+            package='scan_filter',
+            executable='scan_filter_node',
+            name='scan_filter_node',
+            output='screen'
+        ),
 
         # ✅ Launch Cartographer for SLAM
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(tb3_cartographer_dir, 'launch', 'cartographer.launch.py')
             ),
-            launch_arguments={'use_sim_time': 'true'}.items()
+            launch_arguments={
+                'use_sim_time': 'true',
+                'scan_topic': '/scan_filtered'  # 👈 remap!
+            }.items()                       
         ),
     ])
